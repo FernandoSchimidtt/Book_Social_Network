@@ -1,5 +1,7 @@
 package com.fernandoschimidt.booknetwork.user;
 
+import com.fernandoschimidt.booknetwork.book.Book;
+import com.fernandoschimidt.booknetwork.history.BookTransactionHistory;
 import com.fernandoschimidt.booknetwork.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -47,6 +49,12 @@ public class User implements UserDetails, Principal {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransactionHistory> histories;
+
     @Override
     public String getName() {
         return email;
@@ -91,6 +99,10 @@ public class User implements UserDetails, Principal {
     }
 
     public String fullName() {
+        return firstname + " " + lastname;
+    }
+
+    public String getFullName() {
         return firstname + " " + lastname;
     }
 }
