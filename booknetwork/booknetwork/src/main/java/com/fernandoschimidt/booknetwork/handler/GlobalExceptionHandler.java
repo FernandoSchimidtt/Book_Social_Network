@@ -1,6 +1,8 @@
 package com.fernandoschimidt.booknetwork.handler;
 
 
+import com.fernandoschimidt.booknetwork.exception.ActivationTokenException;
+import com.fernandoschimidt.booknetwork.exception.OperationNotPermittedException;
 import jakarta.mail.MessagingException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,9 +18,9 @@ import java.util.Set;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static  com.fernandoschimidt.booknetwork.handler.BusinessErrorCodes.ACCOUNT_DISABLED;
-import static  com.fernandoschimidt.booknetwork.handler.BusinessErrorCodes.ACCOUNT_LOCKED;
-import static  com.fernandoschimidt.booknetwork.handler.BusinessErrorCodes.BAD_CREDENTIALS;
+import static com.fernandoschimidt.booknetwork.handler.BusinessErrorCodes.ACCOUNT_DISABLED;
+import static com.fernandoschimidt.booknetwork.handler.BusinessErrorCodes.ACCOUNT_LOCKED;
+import static com.fernandoschimidt.booknetwork.handler.BusinessErrorCodes.BAD_CREDENTIALS;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -74,27 +76,27 @@ public class GlobalExceptionHandler {
                 );
     }
 
-//    @ExceptionHandler(ActivationTokenException.class)
-//    public ResponseEntity<ExceptionResponse> handleException(ActivationTokenException exp) {
-//        return ResponseEntity
-//                .status(BAD_REQUEST)
-//                .body(
-//                        ExceptionResponse.builder()
-//                                .error(exp.getMessage())
-//                                .build()
-//                );
-//    }
-//
-//    @ExceptionHandler(OperationNotPermittedException.class)
-//    public ResponseEntity<ExceptionResponse> handleException(OperationNotPermittedException exp) {
-//        return ResponseEntity
-//                .status(BAD_REQUEST)
-//                .body(
-//                        ExceptionResponse.builder()
-//                                .error(exp.getMessage())
-//                                .build()
-//                );
-//    }
+    @ExceptionHandler(ActivationTokenException.class)
+    public ResponseEntity<ExceptionResponse> handleException(ActivationTokenException exp) {
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(
+                        ExceptionResponse.builder()
+                                .error(exp.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(OperationNotPermittedException.class)
+    public ResponseEntity<ExceptionResponse> handleException(OperationNotPermittedException exp) {
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .body(
+                        ExceptionResponse.builder()
+                                .error(exp.getMessage())
+                                .build()
+                );
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exp) {
