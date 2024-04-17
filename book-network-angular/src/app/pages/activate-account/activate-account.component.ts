@@ -34,6 +34,7 @@ export class ActivateAccountComponent {
           this.message =
             'Your has been successfully activated. \nNow you can proceed to login.';
           this.submitted = true;
+          this.isOkay = true;
         },
         error: (): void => {
           this.message = 'Token has been epired or invalid';
