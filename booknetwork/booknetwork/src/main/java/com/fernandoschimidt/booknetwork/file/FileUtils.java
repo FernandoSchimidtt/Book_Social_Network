@@ -10,14 +10,15 @@ import java.nio.file.Path;
 
 @Slf4j
 public class FileUtils {
-    public static byte[] readFileFromLcoation(String fileUrl) {
-        if (StringUtils.isBlank(fileUrl))
+    public static byte[] readFileFromLocation(String fileUrl) {
+        if (StringUtils.isBlank(fileUrl)) {
             return null;
+        }
         try {
             Path filePath = new File(fileUrl).toPath();
             return Files.readAllBytes(filePath);
         } catch (IOException e) {
-            log.warn("No file found in the path {} ", fileUrl);
+            log.warn("Nou file found in the path {}", fileUrl);
         }
         return null;
     }

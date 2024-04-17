@@ -19,7 +19,8 @@ import static java.lang.System.currentTimeMillis;
 
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
+
 public class FileStorageService {
 
     @Value("${application.file.uploads.photos-output-path}")
@@ -27,7 +28,7 @@ public class FileStorageService {
 
     public String saveFile(
             @Nonnull MultipartFile sourceFile,
-
+            @Nonnull Integer bookId,
             @Nonnull Integer userId
     ) {
         final String fileUploadSubPath = "users" + separator + userId;
