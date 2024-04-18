@@ -1,0 +1,9 @@
+<h3>Books list</h3>
+<hr />
+
+<div class="d-flex justify-content start gap-2 flex-wrap">
+  <app-book-card
+    *ngFor="let book of bookResponse.content"
+    [book]="book"
+  ></app-book-card>
+</div>
