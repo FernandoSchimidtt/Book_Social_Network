@@ -7,13 +7,12 @@ import {
 import { BookService } from 'src/app/services/services';
 
 @Component({
-  selector: 'app-book-list',
-  templateUrl: './book-list.component.html',
-  styleUrls: ['./book-list.component.scss'],
+  selector: 'app-my-books',
+  templateUrl: './my-books.component.html',
+  styleUrls: ['./my-books.component.scss'],
 })
-export class BookListComponent implements OnInit {
+export class MyBooksComponent implements OnInit {
   bookResponse: PageResponseBookResponse = {};
-  message = '';
   page = 0;
   size = 5;
   level = 'success';
@@ -31,7 +30,7 @@ export class BookListComponent implements OnInit {
   private findAllBooks(): void {
     // debugger;
     this.bookService
-      .findAllBooks({
+      .findAllBooksByOwner({
         page: this.page,
         size: this.size,
       })
@@ -67,22 +66,7 @@ export class BookListComponent implements OnInit {
     return this.page === (this.bookResponse.totalPages as number) - 1;
   }
 
-  borrowBook(book: BookResponse) {
-    this.message = '';
-    this.bookService
-      .borrowBook({
-        'book-id': book.id as number,
-      })
-      .subscribe({
-        next: () => {
-          this.level = 'success';
-          this.message = 'Book successfully added to your list';
-        },
-        error: (err) => {
-          console.log(err);
-          this.level = 'error';
-          this.message = err.error.error;
-        },
-      });
-  }
+  archiveBook(book: BookResponse) {}
+  shareBook(book: BookResponse) {}
+  editBook(book: BookResponse) {}
 }

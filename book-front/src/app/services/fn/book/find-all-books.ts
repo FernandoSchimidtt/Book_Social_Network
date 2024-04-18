@@ -13,21 +13,28 @@ export interface FindAllBooks$Params {
   size?: number;
 }
 
-export function findAllBooks(http: HttpClient, rootUrl: string, params?: FindAllBooks$Params, context?: HttpContext): Observable<StrictHttpResponse<PageResponseBookResponse>> {
+export function findAllBooks(
+  http: HttpClient,
+  rootUrl: string,
+  params?: FindAllBooks$Params,
+  context?: HttpContext
+): Observable<StrictHttpResponse<PageResponseBookResponse>> {
   const rb = new RequestBuilder(rootUrl, findAllBooks.PATH, 'get');
   if (params) {
     rb.query('page', params.page, {});
     rb.query('size', params.size, {});
   }
 
-  return http.request(
-    rb.build({ responseType: 'json', accept: 'application/json', context })
-  ).pipe(
-    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-    map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<PageResponseBookResponse>;
-    })
-  );
+  return http
+    .request(
+      rb.build({ responseType: 'json', accept: 'application/json', context })
+    )
+    .pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<PageResponseBookResponse>;
+      })
+    );
 }
 
 findAllBooks.PATH = '/books';
