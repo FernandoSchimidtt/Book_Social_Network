@@ -181,7 +181,7 @@ export class BookService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  returnBorrowBook$Response(params?: ReturnBorrowBook$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+  returnBorrowBook$Response(params: ReturnBorrowBook$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
     return returnBorrowBook(this.http, this.rootUrl, params, context);
   }
 
@@ -191,7 +191,7 @@ export class BookService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  returnBorrowBook(params?: ReturnBorrowBook$Params, context?: HttpContext): Observable<number> {
+  returnBorrowBook(params: ReturnBorrowBook$Params, context?: HttpContext): Observable<number> {
     return this.returnBorrowBook$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
     );

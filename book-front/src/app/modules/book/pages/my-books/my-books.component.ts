@@ -13,14 +13,11 @@ import { BookService } from 'src/app/services/services';
 })
 export class MyBooksComponent implements OnInit {
   bookResponse: PageResponseBookResponse = {};
-  page = 0;
+  page = 1;
   size = 5;
   level = 'success';
 
-  constructor(
-    private bookService: BookService,
-     private router: Router
-    ) {}
+  constructor(private bookService: BookService, private router: Router) {}
 
   ngOnInit(): void {
     this.findAllBooks();
@@ -31,8 +28,8 @@ export class MyBooksComponent implements OnInit {
     // debugger;
     this.bookService
       .findAllBooksByOwner({
-        page: this.page,
-        size: this.size,
+        // page: this.page,
+        // size: this.size,
       })
       .subscribe({
         next: (books): void => {
@@ -66,7 +63,30 @@ export class MyBooksComponent implements OnInit {
     return this.page === (this.bookResponse.totalPages as number) - 1;
   }
 
-  archiveBook(book: BookResponse) {}
-  shareBook(book: BookResponse) {}
-  editBook(book: BookResponse) {}
+  archiveBook(book: BookResponse) {
+    this.bookService
+      .updateArchivedStatus({
+        'book-id': book.id as number,
+      })
+      .subscribe({
+        next: () => {
+          book.archived = !book.archived;
+        },
+      });
+  }
+  shareBook(book: BookResponse) {
+    this.bookService
+      .updateShareableStatus({
+        'book-id': book.id as number,
+      })
+      .subscribe({
+        next: () => {
+          book.shareable = !book.shareable;
+        },
+      });
+  }
+
+  editBook(book: BookResponse) {
+    this.router.navigate(['books', 'manage', book.id]);
+  }
 }

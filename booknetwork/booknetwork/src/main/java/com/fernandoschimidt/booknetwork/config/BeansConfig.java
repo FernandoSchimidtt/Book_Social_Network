@@ -66,7 +66,7 @@ public class BeansConfig {
                 "GET",
                 "POST",
                 "DELETE",
-                "PATH",
+                "PATCH",
                 "PUT"
         ));
         source.registerCorsConfiguration("/**", config);

@@ -55,15 +55,15 @@ export class BookCardComponent {
     this.borrow.emit(this._book);
   }
   onAddToWaitingList() {
-    this.borrow.emit(this._book);
+    this.addToWaitingList.emit(this._book);
   }
   onEdit() {
-    this.borrow.emit(this._book);
+    this.edit.emit(this._book);
   }
   onShare() {
-    this.borrow.emit(this._book);
+    this.share.emit(this._book);
   }
   onArchive() {
-    this.borrow.emit(this._book);
+    this.archive.emit(this._book);
   }
 }
